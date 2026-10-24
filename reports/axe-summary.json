@@ -1,0 +1,41 @@
+[
+  {
+    "state": "desktop",
+    "violations": 0,
+    "passes": 49,
+    "manualReview": [
+      "color-contrast"
+    ]
+  },
+  {
+    "state": "320px",
+    "violations": 0,
+    "passes": 50,
+    "manualReview": [
+      "color-contrast"
+    ]
+  },
+  {
+    "state": "mobile menu",
+    "violations": 0,
+    "passes": 29,
+    "manualReview": []
+  },
+  {
+    "state": "expanded FAQ",
+    "violations": 0,
+    "passes": 49,
+    "manualReview": [
+      "color-contrast"
+    ]
+  },
+  {
+    "state": "video dialog",
+    "violations": 0,
+    "passes": 20,
+    "manualReview": [
+      "color-contrast",
+      "video-caption"
+    ]
+  }
+]

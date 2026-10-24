@@ -1,0 +1,6 @@
+# Hero background
+
+Asset: `images/cinema-hero.webp` (74,748 bytes). Generated with the built-in image_gen tool, then encoded as WebP. This is an illustrative generated auditorium, not a photograph of a customer installation.
+
+Prompt:
+Create a photorealistic premium architectural cinema photography background for a strict modern Russian cinema automation B2B website hero. Very wide landscape 16:9 composition. View from the back corner of a refined empty small contemporary cinema auditorium toward the projection screen on the RIGHT half. Deep midnight navy and charcoal palette, understated warm burnt-orange aisle lighting, elegant dark upholstered seats. A beautiful soft cinematic projector beam through faint atmospheric haze, subtle cool silver screen glow, no image or text on the screen. Left 55 percent deliberately very dark low detail negative space for white headline overlay. Right half shows recognizable cinema seats and glowing screen in perspective. Realistic physical architecture, sophisticated editorial photography, cinematic but restrained, no neon, no futuristic sci-fi, no people, no logos, no lettering, no UI, no graphic overlays. Dark edges blend smoothly into #101b29. Output a high quality background photograph, not a website mockup.

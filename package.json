@@ -1,0 +1,8 @@
+{
+  "name": "ask-luch",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {"build": "node scripts/build.mjs", "test": "node tests/static.cjs"},
+  "devDependencies": {"esbuild": "0.28.2"}
+}
