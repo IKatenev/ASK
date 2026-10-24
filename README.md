@@ -1,39 +1,94 @@
-# АСК «Луч» — статический сайт
+# ASK Luch — Cinema Automation Website
 
-Сайт подготовлен для GitHub Pages. PHP, SMTP, токены, серверные обработчики и ложная страница подтверждения удалены. Поля формы помогают составить письмо: оно открывается в почтовом приложении, а отправку подтверждает сам посетитель. Есть копирование текста заявки и обычные ссылки на телефон, email и Telegram. Данные не передаются и не сохраняются сайтом.
+A responsive, Russian-language business website for **ASK Luch**, a system that automates non-commercial cinema screenings. The frontend presents a technical product through a clear visual story: how it works, what equipment is involved, how installation is planned, and how to get in touch.
 
-## Сборка и просмотр
+**[View live website](https://ikatenev.github.io/ASK/)** · **[View quality checks](AUDIT.md)**
 
-Требуется Node.js 24 LTS.
+## Preview
 
-```sh
+[![ASK Luch — desktop homepage](docs/screenshots/home-desktop.webp)](https://ikatenev.github.io/ASK/)
+
+<p align="center">
+  <img src="docs/screenshots/equipment-mobile.webp" alt="Mobile view of the cinema equipment section" width="260">
+  <img src="docs/screenshots/contacts-mobile.webp" alt="Mobile contact form and enquiry options" width="260">
+</p>
+
+## Project overview
+
+The goal of the website is to make a specialised cinema automation product understandable to potential business customers, without overwhelming visitors with technical details.
+
+The page brings together:
+
+- **Product introduction:** a focused hero section and clear calls to action.
+- **How it works:** a three-step explanation of scheduling, content delivery and automatic screenings.
+- **Equipment overview:** a labelled visual diagram of the connected cinema components.
+- **Installation information:** practical requirements and a route to discussing a setup.
+- **FAQ and contacts:** answers to common questions and ways to prepare an enquiry.
+
+## Frontend features
+
+- **Responsive design** for desktop, tablet and mobile screens, with a custom visual identity and CSS-based illustrations.
+- **Accessible mobile navigation** with keyboard support, focus management and an overlay that does not shift the page content.
+- **Interactive FAQ** using native `<details>` elements and motion-aware transitions.
+- **Video walkthrough** in a native `<dialog>`, with deferred loading and a direct MP4 fallback.
+- **Enquiry assistance** with input validation, a phone-number mask, a pre-filled email draft and a copy-to-clipboard alternative.
+- **Performance-focused delivery:** local Manrope font subsets, optimised WebP images, CSS/JavaScript minification and minimal third-party dependencies.
+- **Accessibility and metadata:** semantic markup, visible focus indicators, reduced-motion support, SEO/Open Graph metadata and a content security policy.
+
+## Tech stack
+
+**HTML5 · CSS3 · Vanilla JavaScript · esbuild · GitHub Actions · GitHub Pages**
+
+The site is intentionally built without a runtime frontend framework. JavaScript handles interface behaviour; the static build prepares the production files for GitHub Pages.
+
+## Performance and testing
+
+The latest saved **local simulated-mobile Lighthouse** audit of the corrected build reported:
+
+| Performance | Accessibility | Best Practices | SEO |
+|:-----------:|:-------------:|:--------------:|:---:|
+| 98 | 100 | 100 | 100 |
+
+These are laboratory results from a local production preview, **not real-user measurements or a live GitHub Pages audit**. Results can vary by device and network.
+
+- `npm test` checks build output, assets and public configuration.
+- Additional browser checks cover responsive layouts, mobile navigation, FAQ interactions, video dialog behaviour and contact tools.
+- The [technical audit](AUDIT.md) records the measurement setup, improvements and limitations. Accessibility testing does not constitute WCAG certification; video accessibility requires manual review.
+
+## Run locally
+
+Requires **Node.js 24**.
+
+```bash
+git clone https://github.com/IKatenev/ASK.git
+cd ASK
 npm ci
 npm run build
 npm test
 node scripts/serve.mjs
 ```
 
-Откройте http://127.0.0.1:18745/ASK/. Для другого порта задайте PORT. Веб-сервер предпросмотра предназначен только для локальной проверки.
+Open `http://127.0.0.1:18745/ASK/` to preview the production build.
 
-`dist/` генерируется заново из списка разрешённых файлов. В него не попадают исходники PHP, документация, тесты, .env, node_modules и настройки разработчика. CSS/JS минифицируются esbuild. Секреты для сборки и работы не нужны. Шрифты с кириллицей и латиницей размещены локально с лицензией OFL, изображения адаптивные WebP, маска телефона загружается при фокусе, видео — только после открытия. Для видео используются нативный dialog и браузерные controls. Исходники редактируются в index.html, style.css, media.css и js/main.js, не в dist.
+## Project structure
 
-## Публикация
+```text
+index.html                  Main page markup
+style.css, media.css        Core and responsive styling
+js/main.js                 Interactive frontend functionality
+images/, fonts/, video/     Local media and typography
+scripts/build.mjs          Static production build
+.github/workflows/pages.yml  GitHub Pages deployment
+tests/                      Build and browser checks
+AUDIT.md                    Technical audit and measurements
+```
 
-1. В репозитории `IKatenev/ASK` откройте Settings → Pages → Source → GitHub Actions.
-2. Зафиксируйте и отправьте изменения в ветку main. Подготовленный `.github/workflows/pages.yml` соберёт, проверит и опубликует только dist. Workflow можно запустить вручную.
-3. Ожидаемый адрес: https://ikatenev.github.io/ASK/ . Публикация из этой сессии не выполнялась.
+## Deployment and enquiry behaviour
 
-При переносе в другой репозиторий/на домен задайте правильный SITE_URL в workflow и локально перед сборкой. Из него генерируются canonical, og:url, og:image, sitemap и ссылки 404. SITE_URL должен быть HTTPS-адресом корня сайта с путём репозитория. Встроенные пути к ресурсам относительные, поэтому работают из подпапки.
+The public site is hosted on **GitHub Pages**. It is a static frontend, not the underlying cinema automation software.
 
-В Actions закреплены SHA используемых официальных действий, права на запись есть только у deploy job. Не выбирайте публикацию корня репозитория из ветки: используйте подготовленный artifact workflow. GitHub Pages управляет HTTP-кешированием, сжатием и заголовками — их нельзя настроить через .htaccess. CSP задана в HTML; frame-ancestors и X-Content-Type-Options требуют серверных заголовков и не эмулируются метатегами. robots.txt в подпапке проекта не управляет корневым robots.txt домена github.io.
+The enquiry form **does not send data to a server**: it prepares an email in the visitor's own mail application or lets the visitor copy the enquiry text. No enquiry is stored by this website. A production form with server-side delivery would require a separate backend or form service.
 
-## Проверки
+The hero background is AI-generated illustrative imagery, not a photograph of an actual customer installation. No business performance or conversion results are claimed.
 
-`npm test` проверяет безопасный состав сборки, доступность локальных ресурсов, отсутствие серверных ссылок и SEO/CSP.
-
-`tests/browser.cjs` проверяет сборку по адресу из BASE_URL (по умолчанию http://127.0.0.1:18745/ASK/). Нужен Playwright и установленный Chromium; путь к модулю можно передать через PLAYWRIGHT_MODULE, к браузеру — через BROWSER_EXECUTABLE. Необязательный AXE_PATH указывает на локальный axe.min.js для проверки WCAG в пяти состояниях. Проверяются меню без сдвига, клавиатура, аккордеон, reduced motion, видеодиалог, копирование, отсутствие JS, читаемость и текстовые интервалы. Почта при тестах не отправляется.
-
-Результаты и ограничения приведены в AUDIT.md. Автоматические проверки не означают полную сертификацию WCAG. Для ролика нужна ручная проверка речевого/звукового содержания и соответствующие субтитры/аудиоописание. Произвольный краткий текст рядом с роликом не выдаётся за полную расшифровку. Исходные контактные данные владельца сохранены; перед публикацией убедитесь, что они актуальны.
-
-
-Регрессия медленной загрузки: `node tests/cold-load.cjs` с теми же PLAYWRIGHT_MODULE/BROWSER_EXECUTABLE/BASE_URL, что у браузерных тестов. Тест задерживает основной скрипт на 2,5 секунды, отдельно задерживает шрифты, записывает Layout Shift API и проверяет CLS < 0,01. Важно сохранять ранний bootstrap в head и пересчитывать его CSP-хеш через сборку, а не переносить определение режима JS обратно в отложенный скрипт.
+**Frontend implementation and redesign:** [Ivan Katenev](https://www.upwork.com/freelancers/ivankatenev). Product identity and business information belong to their respective owners.
