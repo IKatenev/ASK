@@ -22,8 +22,12 @@ const image = new URL('images/social-card.jpg',site).href;
 html = html.replace(/<link rel="canonical"[^>]*>|<meta property="og:(?:url|image|image:width|image:height|image:alt)"[^>]*>/g,'');
 const metadata = `<link rel="canonical" href="${canonical}"><meta property="og:url" content="${canonical}"><meta property="og:image" content="${image}"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Кинозал с экраном и проекторным лучом — АСК Луч">`;
 html = html.replace('</head>', metadata+'</head>');
-const hash = createHash('sha256').update(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]).digest('base64');
-const policy = `default-src 'self'; base-uri 'none'; object-src 'none'; frame-src 'none'; form-action mailto:; script-src 'self' 'sha256-${hash}'; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self'; upgrade-insecure-requests`;
+// Allow only the exact inline bootstrap and structured data; keep unsafe-inline disabled.
+const scriptHashes = [...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/g)]
+  .filter(match => !/\bsrc\s*=/.test(match[0].slice(0, match[0].indexOf('>'))))
+  .map(match => "'sha256-" + createHash('sha256').update(match[1]).digest('base64') + "'")
+  .join(' ');
+const policy = `default-src 'self'; base-uri 'none'; object-src 'none'; frame-src 'none'; form-action mailto:; script-src 'self' ${scriptHashes}; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self'; upgrade-insecure-requests`;
 html = html.replace('<meta charset="utf-8">',`<meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="${policy}">`);
 await writeFile(join(out,'index.html'),html);
 await writeFile(join(out,'.nojekyll'),'');

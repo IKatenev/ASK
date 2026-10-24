@@ -28,3 +28,11 @@ assert(fs.existsSync(path.join(root,'.nojekyll')));
 assert(!files.some(f=>f.includes('node_modules')));
 assert(!files.some(f=>fs.readFileSync(f).includes(Buffer.from('TELEGRAM_BOT_TOKEN'))));
 console.log('PASS: static artifact, safe file allowlist, relative assets, metadata, CSP and truthful contact flow');
+
+assert(html.indexOf('document.documentElement.classList.add("js")') < html.indexOf('rel="stylesheet"'), 'JS mode must be set before first style/layout');
+const crypto = require('node:crypto');
+for (const match of html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/g)) {
+ if (/\bsrc\s*=/.test(match[0].slice(0, match[0].indexOf('>')))) continue;
+ const hash = crypto.createHash('sha256').update(match[1]).digest('base64');
+ assert(html.includes("'sha256-" + hash + "'"), 'Inline script missing CSP authorization');
+}

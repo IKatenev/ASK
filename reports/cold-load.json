@@ -1,0 +1,26 @@
+[
+  {
+    "scriptDelay": 2500,
+    "fontDelay": 0,
+    "cls": 0,
+    "shifts": []
+  },
+  {
+    "scriptDelay": 2500,
+    "fontDelay": 1800,
+    "cls": 0.0013969706565997878,
+    "shifts": [
+      {
+        "value": 0.0013969706565997878,
+        "time": 1847.0999999940395,
+        "sources": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      }
+    ]
+  }
+]
